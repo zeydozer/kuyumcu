@@ -1,0 +1,20 @@
+th,
+td {
+  vertical-align: middle;
+  white-space: nowrap;
+}
+td:last-child,
+th:last-child {
+  text-align: right;
+}
+td a {
+  text-decoration: none;
+  color: inherit;
+}
+/* #cart-total {
+  font-size: 10pt;
+} */
+#user-results {
+  max-height: 200px;
+  overflow-y: scroll;
+}

@@ -1,0 +1,31 @@
+#user-results {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+#products th,
+#products tr {
+  vertical-align: middle;
+}
+#products a,
+#myTabContent td a {
+  text-decoration: none;
+}
+#products a[onclick^="fast.image"]:not(.btn),
+#myTabContent td a[onclick^="fast.image"]:not(.btn) {
+  color: inherit;
+}
+#products .table-responsive {
+  height: 60px;
+}
+#myTabContent th,
+#myTabContent td {
+  vertical-align: middle;
+  white-space: nowrap;
+}
+#myTabContent td:last-child,
+#myTabContent th:last-child {
+  text-align: right;
+}
+#myTabContent [type=number] {
+  width: 60px;
+}

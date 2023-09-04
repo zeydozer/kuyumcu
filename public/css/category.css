@@ -1,0 +1,17 @@
+th,
+td {
+  vertical-align: middle;
+  white-space: nowrap;
+}
+td:last-child,
+th:last-child {
+  text-align: right;
+}
+td a {
+  text-decoration: none;
+  display: inline-block;
+}
+#root-results {
+  max-height: 200px;
+  overflow-y: scroll;
+}
