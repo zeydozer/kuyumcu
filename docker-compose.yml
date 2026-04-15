@@ -1,4 +1,26 @@
 services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    container_name: kuyumcu-nginx
+    depends_on:
+      app:
+        condition: service_started
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+    environment:
+      DOMAIN: "${APP_DOMAIN:-bilezik.zeydozer.com}"
+      APP_UPSTREAM: "${APP_UPSTREAM:-app:80}"
+      CLIENT_MAX_BODY_SIZE: "${CLIENT_MAX_BODY_SIZE:-25m}"
+      CERTBOT_WEBROOT: /var/www/certbot
+      NGINX_RELOAD_POLL_SECONDS: "${NGINX_RELOAD_POLL_SECONDS:-60}"
+    volumes:
+      - letsencrypt:/etc/letsencrypt
+      - certbot_webroot:/var/www/certbot
+    restart: unless-stopped
+
   app:
     build:
       context: .
@@ -8,13 +30,35 @@ services:
       mysql:
         condition: service_healthy
     ports:
-      - "${APP_PORT:-8000}:80"
+      - "127.0.0.1:${APP_PORT:-8000}:80"
     volumes:
       - ./:/var/www/html
       - vendor:/var/www/html/vendor
       - composer_cache:/tmp/composer-cache
     environment:
       COMPOSER_CACHE_DIR: /tmp/composer-cache
+    restart: unless-stopped
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: kuyumcu-certbot
+    depends_on:
+      nginx:
+        condition: service_started
+    entrypoint:
+      - /bin/sh
+      - -c
+    command:
+      - |
+        trap exit TERM
+        while :; do
+          certbot renew --webroot -w /var/www/certbot --deploy-hook "touch /var/www/certbot/.nginx-reload" --quiet || true
+          sleep 12h & wait $${!}
+        done
+    volumes:
+      - letsencrypt:/etc/letsencrypt
+      - certbot_webroot:/var/www/certbot
+      - letsencrypt_lib:/var/lib/letsencrypt
     restart: unless-stopped
 
   mysql:
@@ -24,12 +68,12 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     environment:
-      MYSQL_DATABASE: "${MYSQL_DATABASE:-kuyumcu}"
-      MYSQL_USER: "${MYSQL_USER:-kuyumcu}"
-      MYSQL_PASSWORD: "${MYSQL_PASSWORD:-kuyumcu}"
+      MYSQL_DATABASE: "${DB_DATABASE:-kuyumcu}"
+      MYSQL_USER: "${DB_USERNAME:-kuyumcu}"
+      MYSQL_PASSWORD: "${DB_PASSWORD:-kuyumcu}"
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD:-root}"
     ports:
-      - "${FORWARD_DB_PORT:-3307}:3306"
+      - "127.0.0.1:${FORWARD_DB_PORT:-3307}:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./docker/mysql/init:/docker-entrypoint-initdb.d
@@ -46,6 +90,9 @@ services:
     restart: unless-stopped
 
 volumes:
+  certbot_webroot:
   composer_cache:
   db_data:
+  letsencrypt:
+  letsencrypt_lib:
   vendor:
