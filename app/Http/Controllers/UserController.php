@@ -42,6 +42,8 @@ class UserController extends Controller
                 $r->has('sort') && $r->sort ? 
                 explode(' ', $r->sort) : 
                 ['created_at', 'DESC'];
+            $perPage = (int) $r->input('per_page', 50);
+            $perPage = $perPage > 0 ? min($perPage, 100) : 50;
             $users = User::orderBy($sort[0], $sort[1]);
             if (count($r->all()) > 1) {
                 $users = $users->where('name', 'LIKE', "%{$r->name}%");
@@ -52,7 +54,7 @@ class UserController extends Controller
             }
             if (!$r->user->admin)
                 $users = $users->where('role', 1);
-            $users = $users->paginate(50);
+            $users = $users->paginate($perPage);
             $this->result = UserResource::collection($users)->response()->getData(true);
         } catch (QueryException $e) {
             $this->result['message'] = $e->getMessage();

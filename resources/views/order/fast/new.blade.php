@@ -85,13 +85,15 @@
                 </thead>
                 <tbody class="table-group-divider"></tbody>
                 <thead class="table-group-divider">
-                  <th scope="col" colspan="{{ 5 + $colspan}}">
-                    Toplam
-                  </th>
-                  <th></th>
-                  <th><total-quantity></total-quantity></th>
-                  <th><total-weight></total-weight></th>
-                  <th></th>
+                  <tr>
+                    <th scope="col" colspan="{{ 5 + $colspan}}">
+                      Toplam
+                    </th>
+                    <th></th>
+                    <th><total-quantity></total-quantity></th>
+                    <th><total-weight></total-weight></th>
+                    <th></th>
+                  </tr>
                 </thead>
               </table>
             @endforeach
@@ -107,9 +109,9 @@
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="/css/fast/new.css?step=2">
+<link rel="stylesheet" href="/css/fast/new.css?step=4">
 @endsection
 
 @section('js')
-<script src="/js/fast/new.js?step=13"></script>
+<script src="/js/fast/new.js?step=15"></script>
 @endsection

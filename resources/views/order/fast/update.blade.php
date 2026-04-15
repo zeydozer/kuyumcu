@@ -86,13 +86,15 @@
                 </thead>
                 <tbody class="table-group-divider"></tbody>
                 <thead class="table-group-divider">
-                  <th scope="col" colspan="{{ 5 + $colspan}}">
-                    Toplam
-                  </th>
-                  <th></th>
-                  <th><total-quantity></total-quantity></th>
-                  <th><total-weight></total-weight></th>
-                  <th></th>
+                  <tr>
+                    <th scope="col" colspan="{{ 5 + $colspan}}">
+                      Toplam
+                    </th>
+                    <th></th>
+                    <th><total-quantity></total-quantity></th>
+                    <th><total-weight></total-weight></th>
+                    <th></th>
+                  </tr>
                 </thead>
               </table>
             @endforeach
@@ -121,12 +123,14 @@
                 </thead>
                 <tbody class="table-group-divider"></tbody>
                 <thead class="table-group-divider">
-                  <th scope="col" colspan="{{ 5 + $colspan}}">
-                    Toplam
-                  </th>
-                  <th></th>
-                  <th><total-quantity></total-quantity></th>
-                  <th><total-weight></total-weight></th>
+                  <tr>
+                    <th scope="col" colspan="{{ 5 + $colspan}}">
+                      Toplam
+                    </th>
+                    <th></th>
+                    <th><total-quantity></total-quantity></th>
+                    <th><total-weight></total-weight></th>
+                  </tr>
                 </thead>
               </table>
             @endforeach
@@ -147,12 +151,12 @@
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="/css/fast/update.css">
+<link rel="stylesheet" href="/css/fast/update.css?step=3">
 @endsection
 
 @section('js')
 <script>
   const ORDER_ID = Number('{{ request("id") }}')
 </script>
-<script src="/js/fast/update.js?step=3"></script>
+<script src="/js/fast/update.js?step=6"></script>
 @endsection

@@ -8,6 +8,11 @@ let objLength = (obj) => {
 }
 let capitalizeFirstChar = (str) => 
   str.charAt(0).toUpperCase() + str.substring(1)
+let formatWeight = (value) =>
+  Number(value).toLocaleString('tr-TR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
 const SEARCH_FORM = '#order-search'
 let options = ``
 for (let j = objLength(ORDER_STATUS) - 2; j >= -1; j--)
@@ -306,16 +311,16 @@ let order = {
                 `<td>${cart.height['height_' + j]}</td>`
             }
               rows +=
-                `<td>${cart.weight.toLocaleString('tr-TR')}</td>
+                `<td>${formatWeight(cart.weight)}</td>
                 <td>${cart.quantity.toLocaleString('tr-TR')}</td>
-                <td>${cart.weight_total.toLocaleString('tr-TR')}</td>
+                <td>${formatWeight(cart.weight_total)}</td>
               </tr>`
-            total.quantity += cart.quantity
-            total.weight += cart.weight_total
+            total.quantity += Number(cart.quantity)
+            total.weight += Number(cart.weight_total)
           })
           $('#' + type + ' tbody').html(rows)
           $('#' + type + ' total-quantity').html(total.quantity.toLocaleString('tr-TR'))
-          $('#' + type + ' total-weight').html(total.weight.toLocaleString('tr-TR'))
+          $('#' + type + ' total-weight').html(formatWeight(total.weight))
         }
         $('#order-detail .table-responsive').show()
         $('#order-detail').modal('show')

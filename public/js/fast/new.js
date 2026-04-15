@@ -5,6 +5,7 @@ let fast = {
       url: '/api/users',
       data: {
         page: 1,
+        per_page: 100,
         role: 1,
         name: name
       },
@@ -34,8 +35,6 @@ let fast = {
         $('#user-results').html(resp.responseJSON.message)
       },
       complete: function () {
-        let height = $('#info').height() - $('#products .input-group').height()
-        $('#products .table-responsive').css('height', `calc(${height}px - ${$('#products .input-group').css('margin-bottom')})`)
         $('[name=user_id]').on('change', function () {
           $('#products [name=product]').val(null)
           fast.product()
@@ -175,7 +174,7 @@ let fast = {
                   `<input type="file" accept="image/*" name="cart[${cart.id}][photo]" ${cart.photo != null ? 'class="mt-1"' : ''}>
                 </td>
                 <td><input type="text" name="cart[${cart.id}][note]" value="${cart.note == null ? '-' : cart.note}"></td>
-                <td><input type="number" value="${cart.width}" name="cart[${cart.id}][width]" min="1"></td>`
+                <td><input type="number" value="${cart.width}" name="cart[${cart.id}][width]" min="1" step="0.01"></td>`
             for (let j = HEIGHTS[cart.product.type].min; j <= HEIGHTS[cart.product.type].max; j += HEIGHTS[cart.product.type].between) {
               rows +=
                 `<td><input type="number" value="${cart.height['height_' + j]}" name="cart[${cart.id}][height][${j}]" min="0"></td>`

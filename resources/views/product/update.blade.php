@@ -30,7 +30,7 @@
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">Genişlik</span>
-          <input type="number" class="form-control" name="width" placeholder="Genişlik" required>
+          <input type="number" class="form-control" name="width" placeholder="Genişlik" step="0.01" required>
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">Ağırlık</span>

@@ -145,5 +145,5 @@
 @endsection
 
 @section('js')
-<script src="/js/order.js?step=12"></script>
+<script src="/js/order.js?step=13"></script>
 @endsection

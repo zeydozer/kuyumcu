@@ -76,7 +76,104 @@ let product = {
       }
     })
   },
+  renderCategories: function (resp) {
+    let rows,
+      currentCategoryId =
+        typeof(searchParams.ctg) != 'undefined' ?
+        String(searchParams.ctg) :
+        null
+    if (resp.data.length > 0) {
+      rows = `<ul class="list-group list-group-flush">`
+      if (resp.data[0].root != null) {
+        rows +=
+          `<li class="list-group-item d-flex justify-content-between align-items-center${String(resp.data[0].root.id) == currentCategoryId ? ' active' : ''}"${String(resp.data[0].root.id) == currentCategoryId ? ' aria-current="true"' : ''}>
+            <a href="/products?ctg=${resp.data[0].root.id}">${resp.data[0].root.name}</a>
+          </li>`
+      }
+    } else
+      rows = `<span>Kategori bulunamadi.</span>`
+    resp.data.forEach((ctg, i) => {
+      if (ctg.product_count == undefined)
+        ctg.product_count = 0
+      rows +=
+        `<li class="list-group-item d-flex justify-content-between align-items-center${String(ctg.id) == currentCategoryId ? ' active' : ''}"${String(ctg.id) == currentCategoryId ? ' aria-current="true"' : ''}>
+          <a href="/products?ctg=${ctg.id}">${ctg.name}</a>
+          <span class="badge bg-success rounded-pill">${ctg.product_count}</span>
+        </li>`
+    })
+    if (resp.data.length > 0)
+      rows += `</ul>`
+    $('#categories').html(rows)
+  },
+  loadTopLevelCategories: function () {
+    $.ajax({
+      type: 'GET',
+      url: '/api/categories',
+      data: {
+        product_count: true
+      },
+      headers: {
+        'Authorization': 'Bearer ' + USER.token
+      },
+      success: function (resp) {
+        resp.data = resp.data.filter((ctg) => ctg.root == null)
+        product.renderCategories(resp)
+      },
+      error: function (resp) {
+        alertCustom('danger', resp.responseJSON.message)
+      }
+    })
+  },
+  loadCategories: function (datas, fallback = true) {
+    $.ajax({
+      type: 'GET',
+      url: '/api/categories',
+      data: datas,
+      headers: {
+        'Authorization': 'Bearer ' + USER.token
+      },
+      success: function (resp) {
+        if (resp.data.length == 0 && fallback && datas.root_id != null) {
+          $.ajax({
+            type: 'GET',
+            url: '/api/categories/' + datas.root_id,
+            headers: {
+              'Authorization': 'Bearer ' + USER.token
+            },
+            success: function (ctg) {
+              if (ctg.root != null) {
+                product.loadCategories({
+                  root_id: ctg.root.id,
+                  product_count: true
+                }, false)
+                return
+              }
+              product.loadTopLevelCategories()
+            },
+            error: function (fallbackResp) {
+              alertCustom('danger', fallbackResp.responseJSON.message)
+            }
+          })
+          return
+        }
+        product.renderCategories(resp)
+      },
+      error: function (resp) {
+        alertCustom('danger', resp.responseJSON.message)
+      }
+    })
+  },
   category: function () {
+    if (typeof(searchParams.ctg) == 'undefined')
+      return product.loadTopLevelCategories()
+    return product.loadCategories({
+      root_id :
+        typeof(searchParams.ctg) != 'undefined' ?
+        searchParams.ctg :
+        null,
+      product_count: true
+    })
+    /*
     $.ajax({
       type: 'GET',
       url: '/api/categories',
@@ -119,6 +216,7 @@ let product = {
         alertCustom('danger', resp.responseJSON.message)
       }
     })
+    */
   },
   new: function (form) {
     let datas = new FormData(form),

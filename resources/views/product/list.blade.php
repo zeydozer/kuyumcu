@@ -61,5 +61,5 @@
 @endsection
 
 @section('js')
-<script src="/js/product.js?step=44"></script>
+<script src="/js/product.js?step=47"></script>
 @endsection

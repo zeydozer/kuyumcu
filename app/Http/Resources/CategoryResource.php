@@ -27,7 +27,7 @@ class CategoryResource extends JsonResource
                 date('d.m.Y H:i', strtotime($this->deleted_at)) :
                 null
         ];
-        if ($this->products_count) {
+        if (array_key_exists('products_count', $this->resource->getAttributes())) {
             $childsIds = $this->childsId();
             $resource['product_count'] = Product::where('ctg_id', $this->id)
                 ->orWhereIn('ctg_id', $childsIds)
