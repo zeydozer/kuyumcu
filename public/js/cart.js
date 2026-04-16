@@ -19,29 +19,18 @@ let cart = {
           rows +=
             `<tr data-id="${cart.id}">
               <th scope="row">${i + 1}</th>
-              <td>`
+              <td class="crt-cell">`
             if (cart.product.photo != null) {
-              rows += 
-                `<a href="#" onclick="cart.image('/img/product/${cart.product.photo}'); return false">
-                  ${cart.product.name}
-                </a>`
+              rows += `<div class="crt-cell-main"><a href="#" onclick="cart.image('/img/product/${cart.product.photo}'); return false">${cart.product.name}</a></div>`
             } else {
-              rows +=
-                `${cart.product.name}`
+              rows += `<div class="crt-cell-main">${cart.product.name}</div>`
             }
+            let subs = []
+            if (cart.note != null) subs.push(`<span>${cart.note}</span>`)
+            if (cart.photo != null) subs.push(`<a href="#" onclick="cart.image('/img/cart/${cart.photo}'); return false"><i class="bi-image"></i> Fotoğraf</a>`)
+            if (subs.length > 0) rows += `<div class="crt-cell-sub">${subs.join(' · ')}</div>`
             rows +=
               `</td>
-              <td>`
-            if (cart.photo != null) {
-              rows +=
-                `<button class="btn btn-info" onclick="cart.image('/img/cart/${cart.photo}')">
-                  <i class="bi-image"></i>
-                </button>`
-            } else
-              rows += `-`
-            rows +=
-              `</td>
-              <td>${cart.note == null ? '-' : cart.note}</td>
               <td>${cart.width}</td>`
           for (let j = HEIGHTS[cart.product.type].min; j <= HEIGHTS[cart.product.type].max; j += HEIGHTS[cart.product.type].between) {
             rows +=

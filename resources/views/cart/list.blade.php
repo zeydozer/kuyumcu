@@ -2,24 +2,30 @@
 
 @section('title', 'Sepet')
 
-@php 
+@php
   $user = request("user");
   $types = config("const.productType");
 @endphp
 
 @section('content')
-<div class="container-fluid my-3" id="cart-container" style="display: none">
-  <div class="row">
-    <div class="col">
+<div class="crt-shell" id="cart-container" style="display: none">
+  <div class="crt-page">
+
+    <header class="crt-header">
+      <div>
+        <p class="crt-kicker">Sipariş akışı</p>
+        <h1 class="crt-title">Sepetim</h1>
+      </div>
+    </header>
+
+    <div class="crt-card">
       <div class="table-responsive" style="display: none">
         @foreach ($types as $name => $type)
-          <table class="table table-striped" id="{{ $name }}" style="display: none">
+          <table class="crt-table table mb-0" id="{{ $name }}" style="display: none">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Ürün</th>
-                <th scope="col">Fotoğraf</th>
-                <th scope="col">Not</th>
                 <th scope="col">Genişlik</th>
                 @php $colspan = 0 @endphp
                 @for ($i = $type['min']; $i <= $type['max']; $i += $type['between'])
@@ -38,9 +44,7 @@
             </thead>
             <tbody class="table-group-divider"></tbody>
             <thead class="table-group-divider">
-              <th scope="col" colspan="{{ 5 + $colspan}}">
-                Toplam
-              </th>
+              <th scope="col" colspan="{{ 3 + $colspan }}">Toplam</th>
               <th></th>
               <th><total-quantity></total-quantity></th>
               <th><total-weight></total-weight></th>
@@ -50,8 +54,10 @@
         @endforeach
       </div>
     </div>
+
   </div>
 </div>
+
 @include('cart.delete')
 @include('cart.image')
 @include('cart.update')
@@ -59,9 +65,9 @@
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="/css/cart.css?step=2">
+<link rel="stylesheet" href="/css/cart.css?step=4">
 @endsection
 
 @section('js')
-<script src="/js/cart.js?step=45"></script>
+<script src="/js/cart.js?step=46"></script>
 @endsection

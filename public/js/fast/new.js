@@ -143,25 +143,18 @@ let fast = {
             rows +=
               `<tr data-id="${cart.id}">
                 <th scope="row">${i + 1}</th>
-                <td>`
+                <td class="fst-cell">`
               if (cart.product.photo != null) {
-                rows += 
-                  `<a href="#" onclick="fast.image('/img/product/${cart.product.photo}'); return false">
-                    ${cart.product.name}
-                  </a>`
+                rows += `<div class="fst-cell-main"><a href="#" onclick="fast.image('/img/product/${cart.product.photo}'); return false">${cart.product.name}</a></div>`
               } else {
-                rows +=
-                  `${cart.product.name}`
+                rows += `<div class="fst-cell-main">${cart.product.name}</div>`
               }
-              rows +=
-                  `<input type="hidden" name="cart[${cart.id}][product_id]" value="${cart.product.id}">
-                </td>
-                <td>`
+              rows += `<input type="hidden" name="cart[${cart.id}][product_id]" value="${cart.product.id}">`
               if (cart.photo != null) {
                 rows +=
-                  `<a href="#" class="btn btn-info" onclick="fast.image('/img/cart/${cart.photo}'); return false">
-                    <i class="bi-image"></i>
-                  </a>
+                  `<div class="fst-cell-sub">
+                    <a href="#" onclick="fast.image('/img/cart/${cart.photo}'); return false"><i class="bi-image"></i> Fotoğraf</a>
+                  </div>
                   <div class="form-check mt-1">
                     <input class="form-check-input" name="cart[${cart.id}][photo-del]" type="checkbox" id="photo-del-${cart.id}"
                       onchange="$(this).closest('td').find('[type=file]').slideToggle(150)">
@@ -177,7 +170,7 @@ let fast = {
                 <td><input type="number" value="${cart.width}" name="cart[${cart.id}][width]" min="1" step="0.01"></td>`
             for (let j = HEIGHTS[cart.product.type].min; j <= HEIGHTS[cart.product.type].max; j += HEIGHTS[cart.product.type].between) {
               rows +=
-                `<td><input type="number" value="${cart.height['height_' + j]}" name="cart[${cart.id}][height][${j}]" min="0"></td>`
+                `<td><input type="number" class="fst-h" value="${cart.height['height_' + j]}" name="cart[${cart.id}][height][${j}]" min="0"></td>`
             }
               rows +=
                 `<td><input type="number" value="${cart.weight.replace('.', '').replace(',', '.')}" name="cart[${cart.id}][weight]" step="0.01"></td>

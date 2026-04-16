@@ -2,17 +2,25 @@
 
 @section('title', 'Siparişler')
 
-@php 
+@php
   $user = request("user");
   $statuses = config("const.status");
   $types = config("const.productType");
 @endphp
 
 @section('content')
-<div class="container-fluid my-3" id="order-container" style="display: none">
-  <div class="row">
-    <div class="col">      
-      <ul class="nav nav-tabs">
+<div class="ord-shell" id="order-container" style="display: none">
+  <div class="ord-page">
+
+    <header class="ord-header">
+      <div>
+        <p class="ord-kicker">Üretim takibi</p>
+        <h1 class="ord-title">Siparişler</h1>
+      </div>
+    </header>
+
+    <div class="ord-tabs">
+      <ul class="nav">
         <li class="nav-item">
           <a class="nav-link {{ request('status') == '' ? 'active' : null }}" onclick="order.tab('')">
             Tümü
@@ -26,8 +34,11 @@
         </li>
         @endfor
       </ul>
+    </div>
+
+    <div class="ord-card">
       <div class="table-responsive" style="display: none">
-        <table class="table table-striped mb-0">
+        <table class="ord-table table mb-0">
           <thead>
             <tr>
               @if ($user->role == 0 && $user->admin)
@@ -37,8 +48,7 @@
               @endif
               <th scope="col">#</th>
               <th scope="col" sort="created_at asc">
-                Tarih
-                <i class="bi-arrow-down"></i>
+                Tarih <i class="bi-arrow-down"></i>
               </th>
               <th scope="col" sort="id asc">Numara</th>
               <th scope="col">Müşteri</th>
@@ -131,9 +141,11 @@
         </table>
       </div>
     </div>
+
+    @include('page')
   </div>
-  @include('page')
 </div>
+
 @include('order.search')
 @include('order.delete')
 @include('order.detail')
@@ -141,9 +153,9 @@
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="/css/order.css?step=2">
+<link rel="stylesheet" href="/css/order.css?step=5">
 @endsection
 
 @section('js')
-<script src="/js/order.js?step=13"></script>
+<script src="/js/order.js?step=14"></script>
 @endsection

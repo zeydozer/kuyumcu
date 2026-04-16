@@ -12,59 +12,62 @@
     @endif
   </title>
   <link rel="shortcut icon" href="/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/css/main.css?step=13">
+  <link rel="stylesheet" href="/css/main.css?step=14">
   @yield('css')
 </head>
 <body>
-  <nav class="navbar navbar-expand-sm bg-body-tertiary sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Bilezik</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-sm sticky-top bz-nav" data-bs-theme="dark">
+    <div class="container-fluid bz-nav-inner">
+      <a class="navbar-brand bz-brand" href="#">Bilezik</a>
+      <button class="navbar-toggler bz-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto">
+        <ul class="navbar-nav me-auto bz-nav-links">
           @if (!$user->admin)
             <li class="nav-item">
-              <a class="nav-link" href="/orders?status=0">Sipariş</a>
+              <a class="nav-link bz-link" href="/orders?status=0">Sipariş</a>
             </li>
           @else
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link bz-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Sipariş
               </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/orders?status=0">Liste</a></li>
-                <li><a class="dropdown-item" href="/order-fast">Hızlı Giriş</a></li>
+              <ul class="dropdown-menu bz-dropdown">
+                <li><a class="dropdown-item bz-dropdown-item" href="/orders?status=0">Liste</a></li>
+                <li><a class="dropdown-item bz-dropdown-item" href="/order-fast">Hızlı Giriş</a></li>
               </ul>
             </li>
           @endif
           @if ($user->admin)
             <li class="nav-item">
-              <a class="nav-link" href="/categories">Kategori</a>
+              <a class="nav-link bz-link" href="/categories">Kategori</a>
             </li>
           @endif
           @if (($user->role == 0 && $user->admin) || $user->role == 1)
             <li class="nav-item">
-              <a class="nav-link" href="/products">Ürün</a>
+              <a class="nav-link bz-link" href="/products">Ürün</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/carts">
+              <a class="nav-link bz-link" href="/carts">
                 Sepet (<cart-count>{{ $user->carts_count }}</cart-count>)
               </a>
             </li>
             @if ($user->admin)
               <li class="nav-item">
-                <a class="nav-link" href="/users">Kullanıcılar</a>
+                <a class="nav-link bz-link" href="/users">Kullanıcılar</a>
               </li>
             @endif
           @endif
         </ul>
-        <ul class="navbar-nav navbar-right">
-          <li>
-            <a class="nav-link" id="mode" href="#">
+        <ul class="navbar-nav bz-nav-right">
+          <li class="nav-item">
+            <a class="nav-link bz-util-link" id="mode" href="#" aria-label="Tema değiştir">
               @if (session('mode') != 'moon')
                 <i class="bi-moon"></i>
               @else
@@ -72,8 +75,8 @@
               @endif
             </a>
           </li>
-          <li>
-            <a class="nav-link" href="/logout">Çıkış</a>
+          <li class="nav-item">
+            <a class="nav-link bz-util-link bz-logout" href="/logout">Çıkış</a>
           </li>
         </ul>
       </div>

@@ -1,45 +1,847 @@
-#user-results {
-  min-height: 200px;
-  overflow-y: auto;
+/* ==============================================
+   Fast Order (New) — Bilezik Design Language
+   ============================================== */
+
+:root {
+  --fst-ink:    #1d1711;
+  --fst-muted:  #6f665b;
+  --fst-accent: #cf9c3c;
+  --fst-deep:   #8d5026;
+  --fst-line:   rgba(29, 23, 17, 0.09);
+  --fst-card:   rgba(255, 247, 236, 0.92);
+  --fst-shadow: 0 20px 56px rgba(58, 40, 24, 0.14);
+  --fst-ui:     "Manrope", "Segoe UI Variable Text", "Segoe UI", sans-serif;
+  --fst-serif:  "Cormorant Garamond", Georgia, serif;
 }
-#products th,
-#products tr {
-  vertical-align: middle;
+
+/* ── Page background ── */
+body:has(.fst-shell) {
+  background:
+    radial-gradient(circle at top left,  rgba(241, 205, 133, 0.72), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(143, 80, 39, 0.15), transparent 28%),
+    linear-gradient(135deg, #f5ead9 0%, #eadbc6 50%, #d8c0a5 100%);
 }
-#products a,
-#myTabContent td a {
-  text-decoration: none;
+
+.fst-shell {
+  font-family: var(--fst-ui);
+  color: var(--fst-ink);
+  min-height: calc(100vh - 58px);
+  display: block;
 }
-#products a[onclick^="fast.image"]:not(.btn),
-#myTabContent td a[onclick^="fast.image"]:not(.btn) {
-  color: inherit;
+
+.fst-page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 28px;
+  display: grid;
+  gap: 22px;
 }
-#products .table-responsive {
-  min-height: 200px;
-  overflow-y: auto;
+
+/* ── Header ── */
+.fst-header {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 32px 44px;
+  border-radius: 28px;
+  color: #f8efe0;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(207, 156, 60, 0.28), transparent 24%),
+    linear-gradient(155deg, rgba(22, 17, 13, 0.97), rgba(59, 35, 18, 0.94));
+  box-shadow: 0 22px 60px rgba(58, 40, 24, 0.22);
 }
-@media (min-width: 768px) {
-  #info,
-  #products {
-    display: flex;
-    flex-direction: column;
-    height: 320px;
-  }
-  #user-results,
-  #products .table-responsive {
-    flex: 1 1 auto;
-    min-height: 0;
-  }
+
+.fst-header::before {
+  content: "";
+  position: absolute;
+  top: -80px; left: -80px;
+  width: 260px; height: 260px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
 }
-#myTabContent th,
-#myTabContent td {
-  vertical-align: middle;
+
+.fst-kicker {
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #ddbf7f;
+}
+
+.fst-title {
+  margin: 0;
+  font-family: var(--fst-serif);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1;
+  color: #f8efe0;
+}
+
+/* ── Warning alert ── */
+.fst-alert {
+  padding: 16px 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(207, 156, 60, 0.28);
+  background: rgba(207, 156, 60, 0.08);
+  font-size: 0.86rem;
+  color: var(--fst-deep);
+  line-height: 1.6;
+}
+
+.fst-alert b {
+  color: var(--fst-ink);
+}
+
+/* ── Two-panel layout ── */
+.fst-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* ── Glassmorphism panels ── */
+.fst-panel {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  background: var(--fst-card);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--fst-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.fst-panel-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Panel input groups ── */
+.fst-panel .input-group {
+  margin-bottom: 14px;
+}
+
+.fst-panel .input-group:last-child {
+  margin-bottom: 0;
+}
+
+.fst-panel .input-group-text {
+  background: rgba(207, 156, 60, 0.07) !important;
+  border-color: var(--fst-line) !important;
+  color: var(--fst-muted) !important;
+  font-family: var(--fst-ui) !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  border-radius: 14px 0 0 14px !important;
+  padding: 10px 16px !important;
+  min-width: 80px;
   white-space: nowrap;
 }
-#myTabContent td:last-child,
-#myTabContent th:last-child {
+
+.fst-panel .form-control {
+  border-radius: 0 14px 14px 0 !important;
+  border-color: var(--fst-line) !important;
+  font-family: var(--fst-ui) !important;
+  font-size: 0.9rem !important;
+  color: var(--fst-ink) !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  padding: 10px 14px !important;
+  height: auto !important;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+.fst-panel .form-control:focus {
+  border-color: rgba(207, 156, 60, 0.52) !important;
+  box-shadow: 0 0 0 0.22rem rgba(207, 156, 60, 0.16) !important;
+  background: #fff !important;
+  outline: none;
+}
+
+/* ── Customer results list ── */
+#user-results {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  margin-top: 10px;
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--fst-line);
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 0.86rem;
+  color: var(--fst-muted);
+}
+
+#user-results .form-check {
+  padding: 7px 0 7px 24px;
+  cursor: pointer;
+  color: var(--fst-ink);
+  border-radius: 8px;
+  transition: background 100ms;
+}
+
+#user-results .form-check:hover {
+  background: rgba(207, 156, 60, 0.07);
+}
+
+#user-results .form-check-input {
+  accent-color: var(--fst-accent);
+  cursor: pointer;
+}
+
+#user-results .form-check-label {
+  font-family: var(--fst-ui) !important;
+  font-size: 0.86rem !important;
+  cursor: pointer;
+}
+
+/* ── Product search table area ── */
+.fst-product-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  margin-top: 4px;
+  border-radius: 14px;
+  border: 1px solid var(--fst-line);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.fst-search-table {
+  font-family: var(--fst-ui) !important;
+  font-size: 0.84rem !important;
+  color: var(--fst-ink) !important;
+  background: transparent !important;
+  margin: 0 !important;
+}
+
+.fst-search-table thead th {
+  padding: 10px 14px !important;
+  background: rgba(29, 23, 17, 0.03) !important;
+  border-bottom: 1px solid var(--fst-line) !important;
+  border-top: none !important;
+  font-size: 0.67rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase;
+  color: var(--fst-muted) !important;
+  white-space: nowrap;
+  vertical-align: middle !important;
+}
+
+.fst-search-table thead th:last-child {
   text-align: right;
 }
-#myTabContent [type=number] {
-  width: 60px;
+
+.fst-search-table tbody tr {
+  border-bottom: 1px solid var(--fst-line) !important;
+  transition: background 110ms;
+}
+
+.fst-search-table tbody tr:last-child {
+  border-bottom: 0 !important;
+}
+
+.fst-search-table tbody tr:hover {
+  background: rgba(207, 156, 60, 0.04) !important;
+}
+
+.fst-search-table tbody td {
+  padding: 9px 14px !important;
+  border: none !important;
+  font-size: 0.84rem !important;
+  color: var(--fst-ink) !important;
+  background: transparent !important;
+  vertical-align: middle !important;
+  white-space: nowrap;
+}
+
+.fst-search-table tbody td:last-child {
+  text-align: right;
+}
+
+.fst-search-table tbody td a {
+  color: var(--fst-deep) !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Search table action buttons */
+.fst-search-table .btn-primary,
+.fst-search-table .btn-info,
+.fst-search-table .btn-warning {
+  border-radius: 10px !important;
+  padding: 5px 10px !important;
+  font-size: 0.78rem !important;
+  border: 1px solid transparent !important;
+}
+
+.fst-search-table .btn-primary {
+  background: rgba(207, 156, 60, 0.12) !important;
+  border-color: rgba(207, 156, 60, 0.24) !important;
+  color: var(--fst-deep) !important;
+}
+
+.fst-search-table .btn-info {
+  background: rgba(29, 23, 17, 0.06) !important;
+  border-color: var(--fst-line) !important;
+  color: var(--fst-muted) !important;
+}
+
+.fst-search-table .btn-warning {
+  background: rgba(255, 193, 7, 0.12) !important;
+  border-color: rgba(255, 193, 7, 0.24) !important;
+  color: #8a6500 !important;
+}
+
+/* ── Fixed height on desktop ── */
+@media (min-width: 768px) {
+  #info, #products {
+    max-height: 340px;
+  }
+}
+
+/* ── Tabs section ── */
+.fst-section {
+  display: grid;
+  gap: 0;
+}
+
+.fst-tabs {
+  border-radius: 24px 24px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-bottom: none;
+  background: rgba(255, 247, 236, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 8px 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.fst-tabs .nav-link {
+  font-family: var(--fst-ui) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  color: var(--fst-muted) !important;
+  border: none !important;
+  border-radius: 14px 14px 0 0 !important;
+  padding: 8px 18px !important;
+  cursor: pointer;
+  transition: background 140ms, color 140ms;
+  text-decoration: none;
+}
+
+.fst-tabs .nav-link:hover {
+  background: rgba(207, 156, 60, 0.1) !important;
+  color: var(--fst-ink) !important;
+}
+
+.fst-tabs .nav-link.active {
+  background: var(--fst-card) !important;
+  color: var(--fst-ink) !important;
+  box-shadow: inset 0 -1px 0 var(--fst-card) !important;
+}
+
+/* ── Cart table card ── */
+.fst-table-card {
+  border-radius: 0 0 24px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-top: none;
+  background: var(--fst-card);
+  box-shadow: var(--fst-shadow);
+  overflow: hidden;
+}
+
+/* ── Cart / edit tables ── */
+.fst-table {
+  font-family: var(--fst-ui) !important;
+  font-size: 0.84rem !important;
+  color: var(--fst-ink) !important;
+  background: transparent !important;
+  margin: 0 !important;
+}
+
+.fst-table + .fst-table {
+  border-top: 2px solid var(--fst-line);
+}
+
+.fst-table > thead:first-child tr {
+  border-bottom: 2px solid var(--fst-line) !important;
+}
+
+.fst-table > thead:first-child th {
+  padding: 14px 14px !important;
+  background: rgba(29, 23, 17, 0.03) !important;
+  border: none !important;
+  font-size: 0.67rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase;
+  color: var(--fst-muted) !important;
+  white-space: nowrap;
+  vertical-align: middle !important;
+}
+
+
+.fst-table > thead:last-child {
+  border-top: 2px solid var(--fst-line) !important;
+}
+
+.fst-table > thead:last-child th {
+  padding: 12px 14px !important;
+  background: rgba(207, 156, 60, 0.05) !important;
+  border: none !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  color: var(--fst-ink) !important;
+  vertical-align: middle !important;
+}
+
+.fst-table tbody tr {
+  border-bottom: 1px solid var(--fst-line) !important;
+  transition: background 110ms;
+}
+
+.fst-table tbody tr:last-child {
+  border-bottom: 0 !important;
+}
+
+.fst-table tbody tr:hover {
+  background: rgba(207, 156, 60, 0.03) !important;
+}
+
+.fst-table tbody td,
+.fst-table tbody th {
+  padding: 10px 14px !important;
+  border: none !important;
+  font-size: 0.84rem !important;
+  color: var(--fst-ink) !important;
+  background: transparent !important;
+  vertical-align: middle !important;
+  white-space: nowrap;
+}
+
+
+.fst-table tbody td a {
+  color: var(--fst-deep) !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ── Editable inputs inside tables ── */
+.fst-table tbody td input[type="number"],
+.fst-table tbody td input[type="text"] {
+  border-radius: 8px !important;
+  border: 1px solid var(--fst-line) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: var(--fst-ink) !important;
+  font-family: var(--fst-ui) !important;
+  font-size: 0.82rem !important;
+  padding: 5px 8px !important;
+  height: auto !important;
+  transition: border-color 120ms;
+}
+
+.fst-table tbody td input[type="number"] {
+  width: 62px;
+}
+
+.fst-table tbody td input.fst-h {
+  width: 50px;
+}
+
+.fst-table tbody td input[type="text"] {
+  width: 110px;
+}
+
+.fst-table tbody td input[type="number"]:focus,
+.fst-table tbody td input[type="text"]:focus {
+  border-color: rgba(207, 156, 60, 0.5) !important;
+  box-shadow: 0 0 0 0.18rem rgba(207, 156, 60, 0.14) !important;
+  outline: none;
+  background: #fff !important;
+}
+
+.fst-table tbody td input[type="file"] {
+  font-family: var(--fst-ui) !important;
+  font-size: 0.78rem !important;
+  color: var(--fst-muted) !important;
+  max-width: 160px;
+}
+
+/* ── Photo-del checkbox in table ── */
+.fst-table tbody td .form-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 0;
+  margin-top: 6px;
+}
+
+.fst-table tbody td .form-check-input {
+  float: none !important;
+  margin-left: 0 !important;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--fst-accent);
+}
+
+.fst-table tbody td .form-check-label {
+  font-family: var(--fst-ui) !important;
+  font-size: 0.78rem !important;
+  color: var(--fst-muted) !important;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* cart-quantity / cart-weight custom elements */
+.fst-table cart-quantity,
+.fst-table cart-weight {
+  font-weight: 700;
+  color: var(--fst-ink);
+}
+
+/* Table action buttons (a.btn in tbody) */
+.fst-table .btn-primary {
+  background: rgba(207, 156, 60, 0.1) !important;
+  border: 1px solid rgba(207, 156, 60, 0.22) !important;
+  color: var(--fst-deep) !important;
+  border-radius: 10px !important;
+  padding: 5px 10px !important;
+  font-size: 0.82rem !important;
+}
+
+.fst-table .btn-info {
+  background: rgba(207, 156, 60, 0.08) !important;
+  border: 1px solid var(--fst-line) !important;
+  color: var(--fst-muted) !important;
+  border-radius: 10px !important;
+  padding: 5px 10px !important;
+  font-size: 0.82rem !important;
+}
+
+.fst-table .btn-danger {
+  background: rgba(168, 50, 32, 0.08) !important;
+  border: 1px solid rgba(168, 50, 32, 0.18) !important;
+  color: #a83220 !important;
+  border-radius: 10px !important;
+  padding: 5px 10px !important;
+  font-size: 0.82rem !important;
+}
+
+/* ── Actions area ── */
+.fst-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.fst-actions .btn-primary {
+  border: none !important;
+  border-radius: 16px !important;
+  background: linear-gradient(135deg, var(--fst-accent), var(--fst-deep)) !important;
+  color: #fff8f0 !important;
+  font-family: var(--fst-ui) !important;
+  font-size: 0.9rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em !important;
+  padding: 12px 30px !important;
+  box-shadow: 0 8px 20px rgba(141, 80, 38, 0.24) !important;
+  transition: transform 150ms, box-shadow 150ms !important;
+}
+
+.fst-actions .btn-primary:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 12px 26px rgba(141, 80, 38, 0.32) !important;
+}
+
+.fst-actions .btn-info {
+  border-radius: 16px !important;
+  border: 1px solid var(--fst-line) !important;
+  background: rgba(29, 23, 17, 0.06) !important;
+  color: var(--fst-muted) !important;
+  font-family: var(--fst-ui) !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  padding: 12px 28px !important;
+  transition: background 140ms !important;
+}
+
+.fst-actions .btn-info:hover {
+  background: rgba(29, 23, 17, 0.1) !important;
+  color: var(--fst-ink) !important;
+}
+
+/* ── Image modal (cart.image.blade.php) ── */
+body:has(.fst-shell) .crt-modal .modal-content {
+  font-family: var(--fst-ui);
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-radius: 24px;
+  background: rgba(255, 247, 236, 0.96);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 32px 80px rgba(58, 40, 24, 0.22);
+  overflow: hidden;
+}
+
+body:has(.fst-shell) .crt-modal .modal-header {
+  padding: 26px 30px 22px;
+  border-bottom: 1px solid var(--fst-line);
+  background: rgba(29, 23, 17, 0.02);
+}
+
+body:has(.fst-shell) .crt-modal .modal-title {
+  font-family: var(--fst-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--fst-ink);
+  margin: 0;
+}
+
+body:has(.fst-shell) .crt-modal .modal-footer {
+  padding: 18px 30px;
+  border-top: 1px solid var(--fst-line);
+  background: rgba(29, 23, 17, 0.02);
+}
+
+body:has(.fst-shell) .crt-modal .btn-secondary {
+  border-radius: 14px !important;
+  border: 1px solid var(--fst-line) !important;
+  background: rgba(29, 23, 17, 0.05) !important;
+  color: var(--fst-muted) !important;
+  font-family: var(--fst-ui) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  padding: 10px 22px !important;
+}
+
+body:has(.fst-shell) .crt-image-modal .modal-body {
+  padding: 0;
+  background: rgba(20, 14, 8, 0.96);
+}
+
+body:has(.fst-shell) .crt-image-modal img {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+/* ── Toast ── */
+body:has(.fst-shell) .toast-container.alert {
+  top: 20px !important;
+  right: 20px !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+}
+
+body:has(.fst-shell) .toast-container.alert .toast {
+  min-width: 260px;
+  border-radius: 18px !important;
+  border: 0 !important;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(58, 40, 24, 0.18) !important;
+  font-family: var(--fst-ui);
+  font-size: 0.9rem !important;
+  font-weight: 600;
+}
+
+body:has(.fst-shell) .toast-container.alert .toast-body {
+  padding: 14px 18px !important;
+}
+
+/* ── Dark mode ── */
+[data-bs-theme="dark"] body:has(.fst-shell) {
+  background:
+    radial-gradient(circle at top left,  rgba(100, 60, 20, 0.35), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(50, 28, 10, 0.4), transparent 30%),
+    linear-gradient(135deg, #1a130d 0%, #211710 50%, #1c1309 100%);
+}
+
+[data-bs-theme="dark"] .fst-shell {
+  --fst-ink:    #f0e0c8;
+  --fst-muted:  rgba(240, 224, 200, 0.5);
+  --fst-line:   rgba(255, 255, 255, 0.07);
+  --fst-card:   rgba(38, 27, 17, 0.9);
+  --fst-shadow: 0 20px 56px rgba(0, 0, 0, 0.36);
+}
+
+[data-bs-theme="dark"] .fst-panel,
+[data-bs-theme="dark"] .fst-table-card {
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-bs-theme="dark"] .fst-panel .form-control {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f0e0c8 !important;
+}
+
+[data-bs-theme="dark"] .fst-panel .input-group-text {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(240, 224, 200, 0.5) !important;
+}
+
+[data-bs-theme="dark"] #user-results {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: rgba(240, 224, 200, 0.85);
+}
+
+[data-bs-theme="dark"] #user-results .form-check-label {
+  color: #f0e0c8 !important;
+}
+
+[data-bs-theme="dark"] .fst-product-scroll {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-bs-theme="dark"] .fst-search-table thead th,
+[data-bs-theme="dark"] .fst-table > thead:first-child th {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+[data-bs-theme="dark"] .fst-table > thead:last-child th {
+  background: rgba(207, 156, 60, 0.05) !important;
+}
+
+[data-bs-theme="dark"] .fst-table tbody td input[type="number"],
+[data-bs-theme="dark"] .fst-table tbody td input[type="text"] {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f0e0c8 !important;
+}
+
+[data-bs-theme="dark"] .fst-tabs {
+  background: rgba(38, 27, 17, 0.7);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-bs-theme="dark"] .fst-tabs .nav-link.active {
+  background: rgba(38, 27, 17, 0.9) !important;
+  color: #f0e0c8 !important;
+}
+
+[data-bs-theme="dark"] .fst-alert {
+  background: rgba(207, 156, 60, 0.06);
+  border-color: rgba(207, 156, 60, 0.16);
+  color: #ddbf7f;
+}
+
+[data-bs-theme="dark"] .fst-alert b {
+  color: #f0e0c8;
+}
+
+[data-bs-theme="dark"] body:has(.fst-shell) .crt-modal .modal-content {
+  background: rgba(33, 24, 15, 0.97);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-bs-theme="dark"] body:has(.fst-shell) .crt-modal .modal-header,
+[data-bs-theme="dark"] body:has(.fst-shell) .crt-modal .modal-footer {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-bs-theme="dark"] body:has(.fst-shell) .crt-modal .modal-title {
+  color: #f0e0c8;
+}
+
+[data-bs-theme="dark"] body:has(.fst-shell) .crt-modal .btn-close {
+  filter: invert(1) brightness(0.7);
+}
+
+[data-bs-theme="dark"] body:has(.fst-shell) .crt-modal .btn-secondary {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(240, 224, 200, 0.6) !important;
+}
+
+/* ── Düzenleme tab: compact horizontal padding ── */
+#cart-tab-pane .fst-table > thead:first-child th,
+#cart-tab-pane .fst-table > thead:last-child th,
+#cart-tab-pane .fst-table tbody td,
+#cart-tab-pane .fst-table tbody th {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+/* ── Toplam Adet / Toplam Ağırlık sağa hizalı ── */
+.fst-table tbody td:has(cart-quantity),
+.fst-table tbody td:has(cart-weight),
+.fst-table > thead:last-child th:has(total-quantity),
+.fst-table > thead:last-child th:has(total-weight) {
+  text-align: right !important;
+}
+
+/* ── Combined cell (merged Ürün + Fotoğraf) ── */
+.fst-cell {
+  white-space: normal !important;
+  min-width: 160px;
+  vertical-align: top !important;
+}
+
+.fst-cell-main {
+  font-weight: 600;
+  color: var(--fst-ink);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.fst-cell-sub {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--fst-muted);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.fst-cell-sub a {
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  color: var(--fst-deep) !important;
+  text-decoration: none;
+}
+
+[data-bs-theme="dark"] .fst-cell-main {
+  color: #f0e0c8;
+}
+
+[data-bs-theme="dark"] .fst-cell-sub a {
+  color: #ddbf7f !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 767px) {
+  .fst-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .fst-page {
+    padding: 16px;
+  }
+
+  .fst-header {
+    padding: 24px 28px;
+    border-radius: 22px;
+  }
+}
+
+@media (max-width: 560px) {
+  .fst-page {
+    padding: 12px;
+  }
 }

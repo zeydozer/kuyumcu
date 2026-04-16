@@ -1,47 +1,50 @@
-<div class="modal fade" id="product-cart" tabindex="-1" aria-labelledby="product-label" aria-hidden="true">
+<div class="modal fade prd-modal" id="product-cart" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <form class="modal-content" onsubmit="product.cart(this); return false" enctype="multipart/form-data">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="product-label">Sepete Ekle</h1>
-        <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+        <h1 class="modal-title">Sepete Ekle</h1>
+        <a class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></a>
       </div>
       <div class="modal-body">
         <input type="hidden" name="id">
-        <div class="row g-2 mb-3" id="heights"></div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Genişlik</span>
-          <input type="number" class="form-control" name="width" placeholder="Genişlik" step="0.01" required>
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Ağırlık</span>
-          <input type="number" class="form-control" name="weight" placeholder="Ağırlık" step="0.01" required>
-        </div>
-        <div class="row mb-3 align-items-center" id="cart-total">
-          <div class="col text-truncate text-nowrap">
-            <b>Toplam Adet</b>
+
+        <div class="row g-2 mb-4" id="heights"></div>
+
+        <div class="prd-cart-total" id="cart-total">
+          <div class="prd-cart-stat">
+            <div class="prd-cart-stat-label">Toplam Adet</div>
+            <div class="prd-cart-stat-value"><cart-quantity>0</cart-quantity></div>
           </div>
-          <div class="col">
-            <cart-quantity></cart-quantity>
-          </div>
-          <div class="col text-truncate text-nowrap">
-            <b>Toplam Ağırlık</b>
-          </div>
-          <div class="col">
-            <cart-weight></cart-weight>
+          <div class="prd-cart-stat">
+            <div class="prd-cart-stat-label">Toplam Ağırlık</div>
+            <div class="prd-cart-stat-value"><cart-weight>0</cart-weight></div>
           </div>
         </div>
-        <div class="input-group">
-          <span class="input-group-text">Not</span>
-          <input type="text" class="form-control" name="note" placeholder="Not">
+
+        <div class="prd-search-row" style="gap: 12px; margin-bottom: 20px;">
+          <label class="prd-field mb-0">
+            <span>Genişlik</span>
+            <input type="number" class="form-control" name="width" placeholder="0.00" step="0.01" required>
+          </label>
+          <label class="prd-field mb-0">
+            <span>Ağırlık</span>
+            <input type="number" class="form-control" name="weight" placeholder="0.00" step="0.01" required>
+          </label>
         </div>
-        <div class="input-group mt-3">
-          <span class="input-group-text">Fotoğraf</span>
+
+        <label class="prd-field">
+          <span>Not</span>
+          <input type="text" class="form-control" name="note" placeholder="Sipariş notu">
+        </label>
+
+        <label class="prd-field mb-0">
+          <span>Fotoğraf</span>
           <input type="file" class="form-control" name="photo">
-        </div>
+        </label>
       </div>
       <div class="modal-footer">
         <a class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</a>
-        <button type="submit" class="btn btn-primary">Ekle</button>
+        <button type="submit" class="btn btn-primary">Sepete Ekle</button>
       </div>
     </form>
   </div>

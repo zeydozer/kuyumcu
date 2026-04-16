@@ -5,49 +5,63 @@
 @php $user = request("user") @endphp
 
 @section('content')
-<div class="container-fluid my-3" id="product-container" style="display: none">
-  <div class="row g-3">
-    <div class="col-xl-2 col-md-3">
-      @if ($user->role == 0)
-        <button class="btn btn-primary w-100 mb-3 text-start d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#product-new">
-          <i class="bi-plus-lg me-1"></i>
-          <span>Ürün Ekle</span>
-        </button>
-      @endif
-      <form class="row g-3 mb-3" id="product-search">
-        <div class="col">
-          <select name="order[0]" class="form-control">
-            <option value="created_at" selected>Tarih</option>
-            <option value="name">İsim</option>
-            <option value="width">Genişlik</option>
-            <option value="weight">Ağırlık</option>
-          </select>
-        </div>
-        <div class="col">
-          <select name="order[1]" class="form-control">
-            <option value="desc" selected>Azalan</option>
-            <option value="asc">Artan</option>
-          </select>
-        </div>
-        <div class="col-12">
-          <input type="search" class="form-control" placeholder="Ürün Ara" name="name">
-        </div>
-        <input type="hidden" name="page" id="current-page">
-        <input type="hidden" name="ctg">
-      </form>
-      <h5 class="mb-3">Kategoriler</h5>
-      <div id="categories">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
+<div class="prd-shell" id="product-container" style="display: none">
+  <div class="prd-page">
+
+    <header class="prd-header">
+      <div>
+        <p class="prd-kicker">Ürün kataloğu</p>
+        <h1 class="prd-title">Ürünler</h1>
       </div>
-    </div>
-    <div class="col-xl-10 col-md-9">
-      <div class="row g-3" id="products"></div>
-      @include('page')
+    </header>
+
+    <div class="prd-layout">
+
+      <aside class="prd-sidebar">
+        @if ($user->role == 0)
+          <button class="prd-add-btn" data-bs-toggle="modal" data-bs-target="#product-new">
+            <i class="bi-plus-lg"></i>
+            <span>Ürün Ekle</span>
+          </button>
+        @endif
+
+        <form id="product-search" class="prd-search-form">
+          <div class="prd-search-row">
+            <select name="order[0]" class="form-control">
+              <option value="created_at" selected>Tarih</option>
+              <option value="name">İsim</option>
+              <option value="width">Genişlik</option>
+              <option value="weight">Ağırlık</option>
+            </select>
+            <select name="order[1]" class="form-control">
+              <option value="desc" selected>Azalan</option>
+              <option value="asc">Artan</option>
+            </select>
+          </div>
+          <input type="search" class="form-control" placeholder="Ürün ara…" name="name">
+          <input type="hidden" name="page" id="current-page">
+          <input type="hidden" name="ctg">
+        </form>
+
+        <div>
+          <p class="prd-cat-label">Kategoriler</p>
+          <div id="categories">
+            <div class="spinner-border spinner-border-sm text-secondary" role="status">
+              <span class="visually-hidden">Yükleniyor…</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="prd-main">
+        <div class="row g-3" id="products"></div>
+        @include('page')
+      </main>
+
     </div>
   </div>
 </div>
+
 @if ($user->role == 0)
   @include('product.new')
   @include('product.update')
@@ -57,7 +71,7 @@
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="/css/product.css?step=4">
+<link rel="stylesheet" href="/css/product.css?step=5">
 @endsection
 
 @section('js')

@@ -1,18 +1,188 @@
 * {
   font-size: 10pt;
 }
+
 .modal .input-group-text:not(#heights .input-group-text) {
   width: 120px;
 }
+
 #pagination a {
   text-decoration: none;
   color: inherit;
 }
+
 th[sort] {
   cursor: pointer;
 }
+
 @media (max-width: 1199px) {
   .modal .input-group-text:not(#heights .input-group-text) {
     width: 100px;
+  }
+}
+
+/* ==============================================
+   Navbar — Bilezik Design Language
+   ============================================== */
+
+.bz-nav {
+  background:
+    radial-gradient(circle at 90% 50%, rgba(207, 156, 60, 0.1), transparent 40%),
+    linear-gradient(100deg, #18110a, #281a0e) !important;
+  border-bottom: 1px solid rgba(207, 156, 60, 0.12);
+  padding-top: 0;
+  padding-bottom: 0;
+  min-height: 58px;
+}
+
+.bz-nav-inner {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  gap: 8px;
+}
+
+/* ── Brand ── */
+.bz-brand {
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-size: 1.52rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em;
+  color: #cf9c3c !important;
+  padding: 0 !important;
+  margin-right: 28px !important;
+  line-height: 1;
+  text-decoration: none;
+  transition: opacity 150ms;
+}
+
+.bz-brand:hover {
+  opacity: 0.82;
+  color: #cf9c3c !important;
+}
+
+/* ── Nav links ── */
+.bz-nav-links {
+  gap: 2px;
+}
+
+.bz-link {
+  font-family: "Manrope", "Segoe UI", sans-serif !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em;
+  color: rgba(248, 239, 224, 0.68) !important;
+  padding: 18px 14px !important;
+  position: relative;
+  transition: color 140ms;
+}
+
+.bz-link:hover {
+  color: #f8efe0 !important;
+}
+
+/* Amber underline on hover */
+.bz-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: #cf9c3c;
+  border-radius: 2px 2px 0 0;
+  transform: scaleX(0);
+  transition: transform 180ms ease;
+}
+
+.bz-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* ── Dropdown ── */
+.bz-dropdown {
+  background: #1c1309 !important;
+  border: 1px solid rgba(207, 156, 60, 0.14) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.4) !important;
+  padding: 8px !important;
+  margin-top: 4px !important;
+}
+
+.bz-dropdown-item {
+  font-family: "Manrope", "Segoe UI", sans-serif !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em;
+  color: rgba(248, 239, 224, 0.7) !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  transition: background 120ms, color 120ms;
+}
+
+.bz-dropdown-item:hover,
+.bz-dropdown-item:focus {
+  background: rgba(207, 156, 60, 0.12) !important;
+  color: #f8efe0 !important;
+}
+
+/* ── Right side (mode + logout) ── */
+.bz-nav-right {
+  gap: 4px;
+  padding-left: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  margin-left: 8px;
+}
+
+.bz-util-link {
+  font-family: "Manrope", "Segoe UI", sans-serif !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  color: rgba(248, 239, 224, 0.45) !important;
+  padding: 18px 12px !important;
+  transition: color 140ms;
+}
+
+.bz-util-link:hover {
+  color: rgba(248, 239, 224, 0.9) !important;
+}
+
+.bz-logout {
+  letter-spacing: 0.04em;
+}
+
+/* ── Mobile toggler ── */
+.bz-toggler {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  padding: 6px 10px !important;
+  border-radius: 10px !important;
+}
+
+.bz-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(207, 156, 60, 0.2) !important;
+}
+
+/* ── Mobile collapsed menu ── */
+@media (max-width: 575px) {
+  .bz-nav-inner {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .bz-link,
+  .bz-util-link {
+    padding: 12px 10px !important;
+  }
+
+  .bz-link::after {
+    display: none;
+  }
+
+  .bz-nav-right {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    margin-left: 0;
+    padding-left: 0;
+    padding-top: 6px;
+    flex-direction: row !important;
   }
 }

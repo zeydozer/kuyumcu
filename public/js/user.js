@@ -19,11 +19,15 @@ let user = {
           rows +=
             `<tr>
             <th scope="row">${resp.meta.from + i}</th>
-            <td>${user.name}</td>
+            <td>
+              <div class="usr-cell-main">${user.name}</div>
+              <div class="usr-cell-sub">${user.mail}</div>
+            </td>
             <td>${user.role == 0 ? 'Personel' : 'Müşteri'}</td>
-            <td>${user.mail}</td>
-            <td>${user.phone != null ? user.phone : '-'}</td>
-            <td>${user.address != null ? user.address : '-'}</td>
+            <td>
+              <div class="usr-cell-main">${user.phone != null ? user.phone : '-'}</div>
+              <div class="usr-cell-sub">${user.address != null ? user.address : '-'}</div>
+            </td>
             <td>${user.created_at}</td>
             <td>${user.updated_at}</td>
             <td>

@@ -100,7 +100,7 @@ let order = {
               <td>${order.note != null ? order.note : '-'}</td>
               <td class="quantity">${order.quantity}</td>
               <td>${order.weight}</td>
-              <td class="text-capitalize">${ORDER_STATUS[order.status].name}</td>
+              <td><span class="ord-status ord-status-${ORDER_STATUS[order.status].theme}">${ORDER_STATUS[order.status].name}</span></td>
               <td>${buttons}</td>
             </tr>`
         })
@@ -282,29 +282,18 @@ let order = {
             rows +=
               `<tr data-id="${cart.id}">
                 <th scope="row">${i + 1}</th>
-                <td>`
+                <td class="ord-cell">`
               if (cart.product.photo != null) {
-                rows += 
-                  `<a href="#" onclick="order.cartImage('/img/product/${cart.product.photo}'); return false">
-                    ${cart.product.name}
-                  </a>`
+                rows += `<div class="ord-cell-main"><a href="#" onclick="order.cartImage('/img/product/${cart.product.photo}'); return false">${cart.product.name}</a></div>`
               } else {
-                rows +=
-                  `${cart.product.name}`
+                rows += `<div class="ord-cell-main">${cart.product.name}</div>`
               }
+              let subs = []
+              if (cart.note != null) subs.push(`<span>${cart.note}</span>`)
+              if (cart.photo != null) subs.push(`<a href="#" onclick="order.cartImage('/img/cart/${cart.photo}'); return false"><i class="bi-image"></i> Fotoğraf</a>`)
+              if (subs.length > 0) rows += `<div class="ord-cell-sub">${subs.join(' · ')}</div>`
               rows +=
                 `</td>
-                <td>`
-              if (cart.photo != null) {
-                rows +=
-                  `<button class="btn btn-info" onclick="order.cartImage('/img/cart/${cart.photo}')">
-                    <i class="bi-image"></i>
-                  </button>`
-              } else
-                rows += `-`
-              rows +=
-                `</td>
-                <td>${cart.note == null ? '-' : cart.note}</td>
                 <td>${cart.width}</td>`
             for (let j = HEIGHTS[cart.product.type].min; j <= HEIGHTS[cart.product.type].max; j += HEIGHTS[cart.product.type].between) {
               rows +=

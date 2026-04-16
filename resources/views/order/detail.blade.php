@@ -1,20 +1,18 @@
-<div class="modal fade" id="order-detail" tabindex="-1" aria-labelledby="order-label" aria-hidden="true">
+<div class="modal fade ord-modal" id="order-detail" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="order-label">Sipariş Detayı <order-no></order-no></h1>
-        <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+        <h1 class="modal-title">Sipariş Detayı <order-no></order-no></h1>
+        <a class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></a>
       </div>
       <div class="modal-body">
-        <div class="table-responsive">
+        <div class="table-responsive" style="display: none">
           @foreach ($types as $name => $type)
-            <table class="table table-striped" id="{{ $name }}">
+            <table class="ord-detail-table table mb-0" id="{{ $name }}">
               <thead>
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Ürün</th>
-                  <th scope="col">Fotoğraf</th>
-                  <th scope="col">Not</th>
                   <th scope="col">Genişlik</th>
                   @php $colspan = 0 @endphp
                   @for ($i = $type['min']; $i <= $type['max']; $i += $type['between'])
@@ -29,9 +27,7 @@
               <tbody class="table-group-divider"></tbody>
               <thead class="table-group-divider">
                 <tr>
-                  <th scope="col" colspan="{{ 5 + $colspan}}">
-                    Toplam
-                  </th>
+                  <th scope="col" colspan="{{ 3 + $colspan }}">Toplam</th>
                   <th></th>
                   <th><total-quantity></total-quantity></th>
                   <th><total-weight></total-weight></th>
@@ -57,7 +53,7 @@
       </div>
       <div class="modal-footer">
         <a class="btn btn-secondary" data-bs-dismiss="modal">Kapat</a>
-        <a href="#" class="btn btn-info edit">Düzenle</a>
+        <a href="#" class="btn btn-primary edit">Düzenle</a>
       </div>
     </div>
   </div>

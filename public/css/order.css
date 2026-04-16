@@ -1,27 +1,1032 @@
-#order-container th,
-#order-container td,
-#order-detail th,
-#order-detail td {
-  vertical-align: middle;
-  white-space: nowrap;
+/* ==============================================
+   Order Page — Bilezik Design Language
+   ============================================== */
+
+:root {
+  --ord-ink:    #1d1711;
+  --ord-muted:  #6f665b;
+  --ord-accent: #cf9c3c;
+  --ord-deep:   #8d5026;
+  --ord-soft:   #f2e0ba;
+  --ord-line:   rgba(29, 23, 17, 0.09);
+  --ord-card:   rgba(255, 247, 236, 0.92);
+  --ord-shadow: 0 20px 56px rgba(58, 40, 24, 0.14);
+  --ord-ui:     "Manrope", "Segoe UI Variable Text", "Segoe UI", sans-serif;
+  --ord-serif:  "Cormorant Garamond", Georgia, serif;
 }
-#order-container td:last-child,
-#order-container th:last-child {
+
+/* ── Page background ── */
+body:has(.ord-shell) {
+  background:
+    radial-gradient(circle at top left,  rgba(241, 205, 133, 0.72), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(143, 80, 39, 0.15), transparent 28%),
+    linear-gradient(135deg, #f5ead9 0%, #eadbc6 50%, #d8c0a5 100%);
+}
+
+.ord-shell {
+  font-family: var(--ord-ui);
+  color: var(--ord-ink);
+  min-height: calc(100vh - 58px);
+  padding: 28px;
+}
+
+.ord-page {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  gap: 22px;
+}
+
+/* ── Header ── */
+.ord-header {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 32px 44px;
+  border-radius: 28px;
+  color: #f8efe0;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(207, 156, 60, 0.28), transparent 24%),
+    linear-gradient(155deg, rgba(22, 17, 13, 0.97), rgba(59, 35, 18, 0.94));
+  box-shadow: 0 22px 60px rgba(58, 40, 24, 0.22);
+}
+
+.ord-header::before {
+  content: "";
+  position: absolute;
+  top: -80px; left: -80px;
+  width: 260px; height: 260px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ord-kicker {
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #ddbf7f;
+}
+
+.ord-title {
+  margin: 0;
+  font-family: var(--ord-serif);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1;
+  color: #f8efe0;
+}
+
+/* ── Status tabs ── */
+.ord-tabs {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  background: var(--ord-card);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--ord-shadow);
+  padding: 8px;
+}
+
+.ord-tabs .nav {
+  border-bottom: none !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ord-tabs .nav-link {
+  font-family: var(--ord-ui) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  color: var(--ord-muted) !important;
+  border: none !important;
+  border-radius: 16px !important;
+  padding: 8px 18px !important;
+  cursor: pointer;
+  transition: background 140ms, color 140ms;
+  text-decoration: none;
+}
+
+.ord-tabs .nav-link:hover {
+  background: rgba(207, 156, 60, 0.08) !important;
+  color: var(--ord-ink) !important;
+}
+
+.ord-tabs .nav-link.active {
+  background: linear-gradient(135deg, var(--ord-accent), var(--ord-deep)) !important;
+  color: #fff8f0 !important;
+  box-shadow: 0 4px 12px rgba(141, 80, 38, 0.24) !important;
+}
+
+/* ── Table card ── */
+.ord-card {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  background: var(--ord-card);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--ord-shadow);
+  overflow: hidden;
+}
+
+/* ── Main table ── */
+.ord-table {
+  font-family: var(--ord-ui) !important;
+  font-size: 0.88rem !important;
+  color: var(--ord-ink) !important;
+  background: transparent !important;
+  margin: 0 !important;
+}
+
+.ord-table > thead:first-child tr {
+  border-bottom: 2px solid var(--ord-line) !important;
+}
+
+.ord-table > thead:first-child th {
+  padding: 16px 18px !important;
+  background: rgba(29, 23, 17, 0.03) !important;
+  border: none !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase;
+  color: var(--ord-muted) !important;
+  white-space: nowrap;
+  vertical-align: middle !important;
+}
+
+.ord-table > thead:first-child th:last-child {
   text-align: right;
 }
-#order-container td a {
-  text-decoration: none;
-  display: inline-block;
-}
-#order-container .nav-link {
-  text-decoration: none;
+
+.ord-table > thead:first-child th[sort] {
   cursor: pointer;
+  user-select: none;
 }
-#order-container .dropdown-item,
-.form-check-input {
+
+.ord-table > thead:first-child th[sort]:hover {
+  color: var(--ord-ink) !important;
+}
+
+.ord-table thead .bi-arrow-down,
+.ord-table thead .bi-arrow-up {
+  font-size: 0.7rem;
+  opacity: 0.45;
+}
+
+.ord-table > thead:last-child {
+  border-top: 2px solid var(--ord-line) !important;
+}
+
+.ord-table > thead:last-child th {
+  padding: 14px 18px !important;
+  background: rgba(207, 156, 60, 0.05) !important;
+  border: none !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  color: var(--ord-ink) !important;
+  vertical-align: middle !important;
+}
+
+.ord-table tbody tr {
+  border-bottom: 1px solid var(--ord-line) !important;
+  transition: background 120ms ease;
+}
+
+.ord-table tbody tr:last-child {
+  border-bottom: 0 !important;
+}
+
+.ord-table tbody tr:hover {
+  background: rgba(207, 156, 60, 0.04) !important;
+}
+
+.ord-table tbody td,
+.ord-table tbody th {
+  padding: 13px 18px !important;
+  border: none !important;
+  font-size: 0.86rem !important;
+  color: var(--ord-ink) !important;
+  background: transparent !important;
+  vertical-align: middle !important;
+  white-space: nowrap;
+}
+
+.ord-table tbody td:last-child {
+  text-align: right;
+}
+
+.ord-table tbody td input[type="checkbox"],
+.ord-table thead th input[type="checkbox"] {
   cursor: pointer;
+  accent-color: var(--ord-accent);
+  width: 16px;
+  height: 16px;
 }
-#order-detail table a {
+
+/* ── Status badge ── */
+.ord-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.ord-status-success  { background: rgba(40, 167, 69, 0.1);   color: #1a7a36; }
+.ord-status-warning  { background: rgba(255, 193, 7, 0.12);  color: #8a6500; }
+.ord-status-danger   { background: rgba(220, 53, 69, 0.1);   color: #a83220; }
+.ord-status-info     { background: rgba(207, 156, 60, 0.12); color: var(--ord-deep); }
+.ord-status-secondary{ background: rgba(108, 117, 125, 0.1); color: var(--ord-muted); }
+.ord-status-primary  { background: rgba(13, 110, 253, 0.1);  color: #0d6efd; }
+
+/* ── Row action buttons ── */
+.ord-table .btn-primary {
+  background: rgba(207, 156, 60, 0.1) !important;
+  border: 1px solid rgba(207, 156, 60, 0.22) !important;
+  color: var(--ord-deep) !important;
+  border-radius: 12px !important;
+  padding: 6px 12px !important;
+  font-size: 0.82rem !important;
+  transition: background 140ms !important;
+}
+
+.ord-table .btn-primary:hover {
+  background: rgba(207, 156, 60, 0.2) !important;
+}
+
+.ord-table .btn-info {
+  background: rgba(207, 156, 60, 0.08) !important;
+  border: 1px solid rgba(29, 23, 17, 0.1) !important;
+  color: var(--ord-muted) !important;
+  border-radius: 12px !important;
+  padding: 6px 12px !important;
+  font-size: 0.82rem !important;
+  transition: background 140ms !important;
+}
+
+.ord-table .btn-info:hover {
+  background: rgba(29, 23, 17, 0.08) !important;
+  color: var(--ord-ink) !important;
+}
+
+.ord-table .btn-danger {
+  background: rgba(168, 50, 32, 0.08) !important;
+  border: 1px solid rgba(168, 50, 32, 0.18) !important;
+  color: #a83220 !important;
+  border-radius: 12px !important;
+  padding: 6px 12px !important;
+  font-size: 0.82rem !important;
+  transition: background 140ms !important;
+}
+
+.ord-table .btn-danger:hover {
+  background: rgba(168, 50, 32, 0.16) !important;
+}
+
+.ord-table .btn-success {
+  background: rgba(40, 167, 69, 0.1) !important;
+  border: 1px solid rgba(40, 167, 69, 0.2) !important;
+  color: #1a7a36 !important;
+  border-radius: 12px !important;
+  padding: 6px 12px !important;
+  font-size: 0.82rem !important;
+  transition: background 140ms !important;
+}
+
+.ord-table .btn-success:hover {
+  background: rgba(40, 167, 69, 0.18) !important;
+}
+
+.ord-table .btn-warning {
+  background: rgba(255, 193, 7, 0.1) !important;
+  border: 1px solid rgba(255, 193, 7, 0.2) !important;
+  color: #8a6500 !important;
+  border-radius: 12px !important;
+  padding: 6px 12px !important;
+  font-size: 0.82rem !important;
+  transition: background 140ms !important;
+}
+
+.ord-table .btn-group .dropdown-toggle {
+  border-radius: 12px !important;
+}
+
+/* ── Dropdowns in table ── */
+.ord-table .dropdown-menu {
+  border-radius: 16px !important;
+  border: 1px solid var(--ord-line) !important;
+  background: rgba(255, 247, 236, 0.98) !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 12px 36px rgba(58, 40, 24, 0.16) !important;
+  font-family: var(--ord-ui) !important;
+  font-size: 0.86rem !important;
+  padding: 6px !important;
+}
+
+.ord-table .dropdown-item {
+  border-radius: 10px !important;
+  padding: 8px 14px !important;
+  color: var(--ord-ink) !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  transition: background 110ms;
+}
+
+.ord-table .dropdown-item:hover {
+  background: rgba(207, 156, 60, 0.1) !important;
+}
+
+.ord-table .dropdown-divider {
+  border-color: var(--ord-line) !important;
+  margin: 4px 0 !important;
+}
+
+/* ── Thead action buttons (report / search / status) ── */
+.ord-table thead .btn-success {
+  background: linear-gradient(135deg, var(--ord-accent), var(--ord-deep)) !important;
+  border: none !important;
+  color: #fff8f0 !important;
+  border-radius: 12px !important;
+  padding: 8px 14px !important;
+  font-size: 0.82rem !important;
+  box-shadow: 0 6px 16px rgba(141, 80, 38, 0.24) !important;
+  transition: transform 150ms, box-shadow 150ms !important;
+}
+
+.ord-table thead .btn-success:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 10px 22px rgba(141, 80, 38, 0.32) !important;
+}
+
+.ord-table thead .btn-primary {
+  background: rgba(207, 156, 60, 0.1) !important;
+  border: 1px solid rgba(207, 156, 60, 0.22) !important;
+  color: var(--ord-deep) !important;
+  border-radius: 12px !important;
+  padding: 8px 14px !important;
+  font-size: 0.82rem !important;
+}
+
+.ord-table thead .btn-info {
+  background: rgba(29, 23, 17, 0.06) !important;
+  border: 1px solid var(--ord-line) !important;
+  color: var(--ord-muted) !important;
+  border-radius: 12px !important;
+  padding: 8px 14px !important;
+  font-size: 0.82rem !important;
+}
+
+/* ── Toast ── */
+body:has(.ord-shell) .toast-container.alert {
+  top: 20px !important;
+  right: 20px !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+}
+
+body:has(.ord-shell) .toast-container.alert .toast {
+  min-width: 260px;
+  border-radius: 18px !important;
+  border: 0 !important;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(58, 40, 24, 0.18) !important;
+  font-family: var(--ord-ui);
+  font-size: 0.9rem !important;
+  font-weight: 600;
+}
+
+body:has(.ord-shell) .toast-container.alert .toast-body {
+  padding: 14px 18px !important;
+}
+
+/* ── Modals ── */
+.ord-modal .modal-content {
+  font-family: var(--ord-ui);
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-radius: 24px;
+  background: rgba(255, 247, 236, 0.96);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 32px 80px rgba(58, 40, 24, 0.22);
+  overflow: hidden;
+}
+
+.ord-modal .modal-header {
+  padding: 26px 30px 22px;
+  border-bottom: 1px solid var(--ord-line);
+  background: rgba(29, 23, 17, 0.02);
+}
+
+.ord-modal .modal-title {
+  font-family: var(--ord-serif);
+  font-size: 1.65rem;
+  font-weight: 600;
+  color: var(--ord-ink);
+  line-height: 1;
+  margin: 0;
+}
+
+.ord-modal .modal-body {
+  padding: 26px 30px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.ord-modal .modal-footer {
+  padding: 18px 30px;
+  border-top: 1px solid var(--ord-line);
+  gap: 10px;
+  background: rgba(29, 23, 17, 0.02);
+}
+
+/* ── Modal form controls ── */
+.ord-modal .form-control,
+.ord-modal .form-select {
+  border-radius: 14px !important;
+  border: 1px solid var(--ord-line) !important;
+  font-family: var(--ord-ui) !important;
+  font-size: 0.9rem !important;
+  color: var(--ord-ink) !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  padding: 12px 16px !important;
+  height: auto !important;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+.ord-modal .form-control:focus,
+.ord-modal .form-select:focus {
+  border-color: rgba(207, 156, 60, 0.52) !important;
+  box-shadow: 0 0 0 0.22rem rgba(207, 156, 60, 0.16) !important;
+  background: #fff !important;
+  outline: none;
+}
+
+/* ── Search modal input groups ── */
+.ord-modal .input-group {
+  margin-bottom: 14px;
+}
+
+.ord-modal .input-group:last-child {
+  margin-bottom: 0;
+}
+
+.ord-modal .input-group-text {
+  background: rgba(207, 156, 60, 0.07) !important;
+  border-color: var(--ord-line) !important;
+  color: var(--ord-muted) !important;
+  font-family: var(--ord-ui) !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  border-radius: 14px 0 0 14px !important;
+  padding: 10px 16px !important;
+  min-width: 82px;
+  white-space: nowrap;
+}
+
+.ord-modal .input-group .form-control:not(:last-child),
+.ord-modal .input-group .form-select:not(:last-child) {
+  border-radius: 0 !important;
+}
+
+.ord-modal .input-group .form-control:last-child,
+.ord-modal .input-group .form-select:last-child {
+  border-radius: 0 14px 14px 0 !important;
+}
+
+/* reset button */
+.ord-modal input[type="reset"] {
+  border-radius: 14px !important;
+  border: 1px solid var(--ord-line) !important;
+  background: rgba(29, 23, 17, 0.05) !important;
+  color: var(--ord-muted) !important;
+  font-family: var(--ord-ui) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  padding: 10px 22px !important;
+  cursor: pointer;
+  transition: background 140ms !important;
+}
+
+.ord-modal input[type="reset"]:hover {
+  background: rgba(29, 23, 17, 0.1) !important;
+  color: var(--ord-ink) !important;
+}
+
+/* ── Modal buttons ── */
+.ord-modal .btn-secondary {
+  border-radius: 14px !important;
+  border: 1px solid var(--ord-line) !important;
+  background: rgba(29, 23, 17, 0.05) !important;
+  color: var(--ord-muted) !important;
+  font-family: var(--ord-ui) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  padding: 10px 22px !important;
+  transition: background 140ms !important;
+}
+
+.ord-modal .btn-secondary:hover {
+  background: rgba(29, 23, 17, 0.1) !important;
+  color: var(--ord-ink) !important;
+}
+
+.ord-modal .btn-primary {
+  border: none !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, var(--ord-accent), var(--ord-deep)) !important;
+  color: #fff8f0 !important;
+  font-family: var(--ord-ui) !important;
+  font-size: 0.85rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em !important;
+  padding: 10px 26px !important;
+  box-shadow: 0 8px 20px rgba(141, 80, 38, 0.24) !important;
+  transition: transform 150ms, box-shadow 150ms !important;
+}
+
+.ord-modal .btn-primary:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 12px 26px rgba(141, 80, 38, 0.32) !important;
+}
+
+.ord-modal .btn-danger {
+  border: none !important;
+  border-radius: 14px !important;
+  background: linear-gradient(135deg, #d44, #a83220) !important;
+  color: #fff !important;
+  font-family: var(--ord-ui) !important;
+  font-size: 0.85rem !important;
+  font-weight: 800 !important;
+  padding: 10px 26px !important;
+  box-shadow: 0 8px 20px rgba(168, 50, 32, 0.22) !important;
+  transition: transform 150ms, box-shadow 150ms !important;
+}
+
+.ord-modal .btn-danger:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 12px 26px rgba(168, 50, 32, 0.3) !important;
+}
+
+.ord-modal .btn-info {
+  border-radius: 14px !important;
+  border: 1px solid var(--ord-line) !important;
+  background: rgba(29, 23, 17, 0.05) !important;
+  color: var(--ord-muted) !important;
+  font-family: var(--ord-ui) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  padding: 10px 22px !important;
+  transition: background 140ms !important;
+}
+
+.ord-modal .btn-info:hover {
+  background: rgba(29, 23, 17, 0.1) !important;
+  color: var(--ord-ink) !important;
+}
+
+/* ── Detail modal inner tables ── */
+.ord-detail-table {
+  font-family: var(--ord-ui) !important;
+  font-size: 0.84rem !important;
+  color: var(--ord-ink) !important;
+  background: transparent !important;
+  margin-bottom: 0 !important;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.ord-detail-table + .ord-detail-table {
+  margin-top: 16px !important;
+}
+
+.ord-detail-table > thead:first-child th {
+  padding: 12px 16px !important;
+  background: rgba(29, 23, 17, 0.03) !important;
+  border: none !important;
+  font-size: 0.66rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase;
+  color: var(--ord-muted) !important;
+  white-space: nowrap;
+  vertical-align: middle !important;
+}
+
+.ord-detail-table > thead:last-child th {
+  padding: 12px 16px !important;
+  background: rgba(207, 156, 60, 0.05) !important;
+  border-top: 2px solid var(--ord-line) !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  color: var(--ord-ink) !important;
+  vertical-align: middle !important;
+}
+
+.ord-detail-table tbody tr {
+  border-bottom: 1px solid var(--ord-line) !important;
+}
+
+.ord-detail-table tbody tr:last-child {
+  border-bottom: 0 !important;
+}
+
+.ord-detail-table tbody tr:hover {
+  background: rgba(207, 156, 60, 0.03) !important;
+}
+
+.ord-detail-table tbody td,
+.ord-detail-table tbody th {
+  padding: 10px 16px !important;
+  border: none !important;
+  font-size: 0.84rem !important;
+  color: var(--ord-ink) !important;
+  background: transparent !important;
+  vertical-align: middle !important;
+  white-space: nowrap;
+}
+
+.ord-detail-table tbody td a {
+  color: var(--ord-deep) !important;
+  font-weight: 600;
   text-decoration: none;
-  color: inherit;
+}
+
+.ord-detail-table tbody td a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── Combined product / note / photo cell ── */
+.ord-cell {
+  white-space: normal !important;
+  min-width: 160px;
+}
+
+.ord-cell-main {
+  font-weight: 600;
+  color: var(--ord-ink);
+  line-height: 1.3;
+}
+
+.ord-cell-sub {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--ord-muted);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ord-cell-sub a {
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  color: var(--ord-deep) !important;
+}
+
+/* ── Order total summary row ── */
+#order-total {
+  margin-top: 16px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--ord-line);
+  background: rgba(207, 156, 60, 0.04);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ord-ink);
+}
+
+/* ── Image modal (cart.image.blade.php — crt-modal crt-image-modal) ── */
+body:has(.ord-shell) .crt-modal .modal-content {
+  font-family: var(--ord-ui);
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-radius: 24px;
+  background: rgba(255, 247, 236, 0.96);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 32px 80px rgba(58, 40, 24, 0.22);
+  overflow: hidden;
+}
+
+body:has(.ord-shell) .crt-modal .modal-header {
+  padding: 26px 30px 22px;
+  border-bottom: 1px solid var(--ord-line);
+  background: rgba(29, 23, 17, 0.02);
+}
+
+body:has(.ord-shell) .crt-modal .modal-title {
+  font-family: var(--ord-serif);
+  font-size: 1.65rem;
+  font-weight: 600;
+  color: var(--ord-ink);
+  line-height: 1;
+  margin: 0;
+}
+
+body:has(.ord-shell) .crt-modal .modal-footer {
+  padding: 18px 30px;
+  border-top: 1px solid var(--ord-line);
+  background: rgba(29, 23, 17, 0.02);
+}
+
+body:has(.ord-shell) .crt-modal .btn-secondary {
+  border-radius: 14px !important;
+  border: 1px solid var(--ord-line) !important;
+  background: rgba(29, 23, 17, 0.05) !important;
+  color: var(--ord-muted) !important;
+  font-family: var(--ord-ui) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  padding: 10px 22px !important;
+}
+
+body:has(.ord-shell) .crt-image-modal .modal-body {
+  padding: 0;
+  background: rgba(20, 14, 8, 0.96);
+}
+
+body:has(.ord-shell) .crt-image-modal img {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+[data-bs-theme="dark"] body:has(.ord-shell) .crt-modal .modal-content {
+  background: rgba(33, 24, 15, 0.97);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-bs-theme="dark"] body:has(.ord-shell) .crt-modal .modal-header,
+[data-bs-theme="dark"] body:has(.ord-shell) .crt-modal .modal-footer {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-bs-theme="dark"] body:has(.ord-shell) .crt-modal .modal-title {
+  color: #f0e0c8;
+}
+
+[data-bs-theme="dark"] body:has(.ord-shell) .crt-modal .btn-close {
+  filter: invert(1) brightness(0.7);
+}
+
+[data-bs-theme="dark"] body:has(.ord-shell) .crt-modal .btn-secondary {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(240, 224, 200, 0.6) !important;
+}
+
+/* ── Delete body ── */
+.ord-delete-body {
+  font-size: 1rem;
+  color: var(--ord-muted);
+  line-height: 1.6;
+}
+
+.ord-delete-body strong {
+  color: var(--ord-ink);
+  font-weight: 700;
+}
+
+/* ── Pagination (#pagination from page.blade.php) ── */
+body:has(.ord-shell) #pagination {
+  padding: 14px 4px;
+  font-family: var(--ord-ui);
+  font-size: 0.86rem;
+  color: var(--ord-muted);
+  display: flex !important;
+  align-items: center;
+}
+
+body:has(.ord-shell) #pagination a {
+  color: var(--ord-deep) !important;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 4px 6px;
+}
+
+body:has(.ord-shell) #pagination .form-control {
+  border-radius: 10px !important;
+  border-color: var(--ord-line) !important;
+  font-size: 0.86rem !important;
+  height: auto !important;
+  padding: 5px 10px !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  color: var(--ord-ink) !important;
+}
+
+[data-bs-theme="dark"] body:has(.ord-shell) #pagination .form-control {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #f0e0c8 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ── Bootstrap pagination (fallback) ── */
+body:has(.ord-shell) .page-link {
+  font-family: var(--ord-ui) !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  border-radius: 12px !important;
+  border-color: var(--ord-line) !important;
+  color: var(--ord-deep) !important;
+  background: transparent !important;
+  padding: 8px 14px !important;
+  transition: background 130ms;
+}
+
+body:has(.ord-shell) .page-link:hover {
+  background: rgba(207, 156, 60, 0.1) !important;
+  color: var(--ord-ink) !important;
+}
+
+body:has(.ord-shell) .page-item.active .page-link {
+  background: linear-gradient(135deg, var(--ord-accent), var(--ord-deep)) !important;
+  border-color: transparent !important;
+  color: #fff8f0 !important;
+}
+
+body:has(.ord-shell) .page-item.disabled .page-link {
+  color: var(--ord-muted) !important;
+  opacity: 0.4;
+}
+
+/* ── Dark mode ── */
+[data-bs-theme="dark"] body:has(.ord-shell) {
+  background:
+    radial-gradient(circle at top left,  rgba(100, 60, 20, 0.35), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(50, 28, 10, 0.4), transparent 30%),
+    linear-gradient(135deg, #1a130d 0%, #211710 50%, #1c1309 100%);
+}
+
+[data-bs-theme="dark"] .ord-shell {
+  --ord-ink:    #f0e0c8;
+  --ord-muted:  rgba(240, 224, 200, 0.5);
+  --ord-line:   rgba(255, 255, 255, 0.07);
+  --ord-card:   rgba(38, 27, 17, 0.9);
+  --ord-shadow: 0 20px 56px rgba(0, 0, 0, 0.36);
+}
+
+[data-bs-theme="dark"] .ord-card,
+[data-bs-theme="dark"] .ord-tabs {
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-bs-theme="dark"] .ord-table > thead:first-child th {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+[data-bs-theme="dark"] .ord-table > thead:last-child th {
+  background: rgba(207, 156, 60, 0.05) !important;
+}
+
+[data-bs-theme="dark"] .ord-table .dropdown-menu {
+  background: rgba(33, 24, 15, 0.98) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-bs-theme="dark"] .ord-table .dropdown-item {
+  color: #f0e0c8 !important;
+}
+
+[data-bs-theme="dark"] .ord-modal .modal-content {
+  background: rgba(33, 24, 15, 0.97);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+}
+
+[data-bs-theme="dark"] .ord-modal .modal-header,
+[data-bs-theme="dark"] .ord-modal .modal-footer {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+[data-bs-theme="dark"] .ord-modal .modal-title {
+  color: #f0e0c8;
+}
+
+[data-bs-theme="dark"] .ord-modal .btn-close {
+  filter: invert(1) brightness(0.7);
+}
+
+[data-bs-theme="dark"] .ord-modal .form-control,
+[data-bs-theme="dark"] .ord-modal .form-select {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f0e0c8 !important;
+}
+
+[data-bs-theme="dark"] .ord-modal .form-control::placeholder {
+  color: rgba(240, 224, 200, 0.3) !important;
+}
+
+[data-bs-theme="dark"] .ord-modal .input-group-text {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(240, 224, 200, 0.5) !important;
+}
+
+[data-bs-theme="dark"] .ord-modal .btn-secondary,
+[data-bs-theme="dark"] .ord-modal .btn-info,
+[data-bs-theme="dark"] .ord-modal input[type="reset"] {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(240, 224, 200, 0.6) !important;
+}
+
+[data-bs-theme="dark"] .ord-delete-body {
+  color: rgba(240, 224, 200, 0.6);
+}
+
+[data-bs-theme="dark"] .ord-delete-body strong {
+  color: #f0e0c8;
+}
+
+[data-bs-theme="dark"] .ord-detail-table > thead:first-child th {
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: rgba(240, 224, 200, 0.5) !important;
+}
+
+[data-bs-theme="dark"] .ord-detail-table > thead:last-child th {
+  background: rgba(207, 156, 60, 0.05) !important;
+  border-top-color: rgba(255, 255, 255, 0.07) !important;
+  color: #f0e0c8 !important;
+}
+
+/* Modals are outside ord-shell → no CSS variable inheritance → explicit overrides */
+[data-bs-theme="dark"] .ord-detail-table tbody td,
+[data-bs-theme="dark"] .ord-detail-table tbody th {
+  color: #f0e0c8 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+[data-bs-theme="dark"] .ord-detail-table tbody tr:hover {
+  background: rgba(207, 156, 60, 0.04) !important;
+}
+
+[data-bs-theme="dark"] .ord-cell-main {
+  color: #f0e0c8;
+}
+
+[data-bs-theme="dark"] .ord-cell-sub {
+  color: rgba(240, 224, 200, 0.5);
+}
+
+[data-bs-theme="dark"] .ord-cell-sub a {
+  color: #ddbf7f !important;
+}
+
+[data-bs-theme="dark"] .ord-field > span {
+  color: rgba(240, 224, 200, 0.48);
+}
+
+[data-bs-theme="dark"] #order-total {
+  background: rgba(207, 156, 60, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #f0e0c8;
+}
+
+/* Status badges — dark mode (hardcoded light colors for dark bg) */
+[data-bs-theme="dark"] .ord-status-success  { background: rgba(40, 167, 69, 0.18);   color: #6ecf8a; }
+[data-bs-theme="dark"] .ord-status-warning  { background: rgba(255, 193, 7, 0.16);   color: #ffd34d; }
+[data-bs-theme="dark"] .ord-status-danger   { background: rgba(220, 53, 69, 0.18);   color: #f08080; }
+[data-bs-theme="dark"] .ord-status-info     { background: rgba(207, 156, 60, 0.18);  color: #ddbf7f; }
+[data-bs-theme="dark"] .ord-status-secondary{ background: rgba(255, 255, 255, 0.08); color: rgba(240, 224, 200, 0.55); }
+[data-bs-theme="dark"] .ord-status-primary  { background: rgba(100, 149, 255, 0.16); color: #8ab4ff; }
+
+/* Main table body explicit overrides (Bootstrap dark may conflict with CSS vars) */
+[data-bs-theme="dark"] .ord-table tbody td,
+[data-bs-theme="dark"] .ord-table tbody th {
+  color: #f0e0c8 !important;
+}
+
+[data-bs-theme="dark"] .ord-table > thead:first-child th {
+  color: rgba(240, 224, 200, 0.5) !important;
+}
+
+[data-bs-theme="dark"] .ord-table > thead:last-child th {
+  color: #f0e0c8 !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .ord-shell { padding: 16px; }
+  .ord-header { padding: 24px 28px; border-radius: 22px; }
+}
+
+@media (max-width: 560px) {
+  .ord-shell { padding: 12px; }
+  .ord-modal .modal-header,
+  .ord-modal .modal-body,
+  .ord-modal .modal-footer { padding-left: 20px; padding-right: 20px; }
 }
