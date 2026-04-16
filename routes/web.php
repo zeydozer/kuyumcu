@@ -39,6 +39,9 @@ Route::middleware('auth.web')->group(function () use ($redirect) {
         Route::view('users', 'user.list');
         Route::view('order-fast/{id}', 'order.fast.update');
         Route::view('order-fast', 'order.fast.new');
+        Route::view('ai', 'ai');
+        Route::post('ai/chat', [\App\Http\Controllers\AiController::class, 'chat']);
+        Route::post('ai/reset', [\App\Http\Controllers\AiController::class, 'reset']);
     });
     Route::middleware('auth.common')->group(function () {
         Route::view('products', 'product.list');

@@ -31,11 +31,11 @@
         <ul class="navbar-nav me-auto bz-nav-links">
           @if (!$user->admin)
             <li class="nav-item">
-              <a class="nav-link bz-link" href="/orders?status=0">Sipariş</a>
+              <a class="nav-link bz-link {{ request()->is('orders') ? 'active' : '' }}" href="/orders?status=0">Sipariş</a>
             </li>
           @else
             <li class="nav-item dropdown">
-              <a class="nav-link bz-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link bz-link dropdown-toggle {{ request()->is('orders', 'order-fast', 'order-fast/*') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Sipariş
               </a>
               <ul class="dropdown-menu bz-dropdown">
@@ -46,23 +46,28 @@
           @endif
           @if ($user->admin)
             <li class="nav-item">
-              <a class="nav-link bz-link" href="/categories">Kategori</a>
+              <a class="nav-link bz-link {{ request()->is('categories') ? 'active' : '' }}" href="/categories">Kategori</a>
             </li>
           @endif
           @if (($user->role == 0 && $user->admin) || $user->role == 1)
             <li class="nav-item">
-              <a class="nav-link bz-link" href="/products">Ürün</a>
+              <a class="nav-link bz-link {{ request()->is('products') ? 'active' : '' }}" href="/products">Ürün</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link bz-link" href="/carts">
+              <a class="nav-link bz-link {{ request()->is('carts') ? 'active' : '' }}" href="/carts">
                 Sepet (<cart-count>{{ $user->carts_count }}</cart-count>)
               </a>
             </li>
             @if ($user->admin)
               <li class="nav-item">
-                <a class="nav-link bz-link" href="/users">Kullanıcılar</a>
+                <a class="nav-link bz-link {{ request()->is('users') ? 'active' : '' }}" href="/users">Kullanıcılar</a>
               </li>
             @endif
+          @endif
+          @if ($user->admin)
+            <li class="nav-item">
+              <a class="nav-link bz-link {{ request()->is('ai') ? 'active' : '' }}" href="/ai">Yapay Zeka</a>
+            </li>
           @endif
         </ul>
         <ul class="navbar-nav bz-nav-right">

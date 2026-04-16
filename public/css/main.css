@@ -94,8 +94,13 @@ th[sort] {
   transition: transform 180ms ease;
 }
 
-.bz-link:hover::after {
+.bz-link:hover::after,
+.bz-link.active::after {
   transform: scaleX(1);
+}
+
+.bz-link.active {
+  color: #f8efe0 !important;
 }
 
 /* ── Dropdown ── */
